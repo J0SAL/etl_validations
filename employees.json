@@ -1,0 +1,25 @@
+{
+    "employees": [
+      {
+        "employee_id": 101,
+        "name": "John Doe",
+        "department": "Engineering",
+        "salary": 75000.50,
+        "start_date": "2020-01-15"
+      },
+      {
+        "employee_id": 102,
+        "name": "Jane Smith",
+        "department": "Marketing",
+        "salary": 68000.00,
+        "start_date": "2019-05-22"
+      },
+      {
+        "employee_id": 103,
+        "name": "Mike Johnson",
+        "department": "Engineering",
+        "salary": 82000.75,
+        "start_date": "2021-03-10"
+      }
+    ]
+  }

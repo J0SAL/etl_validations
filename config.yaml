@@ -1,0 +1,38 @@
+# config.yaml
+validations:
+  - table: employees
+    json_path: "employees.json"
+    tests:
+      - type: "schema_match"
+        json_field: "$.employees[*]"
+        hive_columns: ["employee_id", "name", "department", "salary", "start_date"]
+      - type: "data_type_match"
+        mappings:
+          - json_field: "employee_id"
+            hive_column: "employee_id"
+            expected_type: "integer"
+          - json_field: "name"
+            hive_column: "name"
+            expected_type: "string"
+          - json_field: "salary"
+            hive_column: "salary"
+            expected_type: "float"
+      - type: "value_match"
+        mappings:
+          - json_field: "employee_id"
+            hive_column: "employee_id"
+          - json_field: "name"
+            hive_column: "name"
+      - type: "range_check"
+        hive_column: "salary"
+        min: 0
+        max: 1000000
+      - type: "not_null"
+        hive_columns: ["employee_id", "name"]
+
+  - table: departments
+    json_path: "departments.json"
+    primary_key: "dept_id"
+    tests:
+      - type: "row_count_match"
+        json_field: "$.departments[*]"
