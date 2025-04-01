@@ -1,3 +1,3 @@
 ```
-pytest test_validations.py -v
+pytest test_validations.py -vv -s
 ```
