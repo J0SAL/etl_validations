@@ -1,18 +1,26 @@
 version: 1.0
 description: "Employee data validation with fields"
 
-inputs:
+table_data:
   employees:
     input_file_path: "employees.json"
     input_file_type: "json"
     hive_table: "employees"
     hive_database: "test_db"
+    mappings: 
+      $ref: "#/mappings/employees"
+    validations:
+      $ref: "#/validations/employees"
 
-  department:
+  departments:
     input_file_path: "departments.json"
     input_file_type: "json"
     hive_table: "departments"
     hive_database: "test_db"
+    mappings: 
+      $ref: "#/mappings/departments"
+    validations:
+      $ref: "#/validations/departments"
 
 mappings:
   employees:
@@ -60,13 +68,13 @@ mappings:
 
   departments:
     department_id:
-      source: "department_id"
+      source: "id"
       target: "dept_id"
       sourceType: "string"
       targetType: "int"
     
     department_name:
-      source: "department_name"
+      source: "name"
       target: "dept_name"
       sourceType: "string"
       targetType: "string"
@@ -75,11 +83,11 @@ validations:
   employees:
     - type: "value_match"
       description: "Validate key fields match between source and target"
-      columns:
-        - $ref: "#/mappings/employees"
+    - type: "schema_match"
+      description: "Validate schema match between source and target"
 
   departments:
     - type: "value_match"
       description: "Validate key fields match between source and target"
-      columns:
-        - $ref: "#/mappings/departments"
+    - type: "schema_match"
+      description: "Validate schema match between source and target"

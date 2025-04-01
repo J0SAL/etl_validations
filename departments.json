@@ -1,16 +1,12 @@
 {
     "departments": [
       {
-        "dept_id": 1,
-        "name": "Engineering",
-        "manager": "John Doe",
-        "budget": 500000
+        "id": "1",
+        "name": "Engineering"
       },
       {
-        "dept_id": 2,
-        "name": "Marketing",
-        "manager": "Jane Smith",
-        "budget": 300000
+        "id": "2",
+        "name": "Marketing"
       }
     ]
   }
