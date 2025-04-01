@@ -1,38 +1,85 @@
-# config.yaml
-validations:
-  - table: employees
-    json_path: "employees.json"
-    tests:
-      - type: "schema_match"
-        json_field: "$.employees[*]"
-        hive_columns: ["employee_id", "name", "department", "salary", "start_date"]
-      - type: "data_type_match"
-        mappings:
-          - json_field: "employee_id"
-            hive_column: "employee_id"
-            expected_type: "integer"
-          - json_field: "name"
-            hive_column: "name"
-            expected_type: "string"
-          - json_field: "salary"
-            hive_column: "salary"
-            expected_type: "float"
-      - type: "value_match"
-        mappings:
-          - json_field: "employee_id"
-            hive_column: "employee_id"
-          - json_field: "name"
-            hive_column: "name"
-      - type: "range_check"
-        hive_column: "salary"
-        min: 0
-        max: 1000000
-      - type: "not_null"
-        hive_columns: ["employee_id", "name"]
+version: 1.0
+description: "Employee data validation with fields"
 
-  - table: departments
-    json_path: "departments.json"
-    primary_key: "dept_id"
-    tests:
-      - type: "row_count_match"
-        json_field: "$.departments[*]"
+inputs:
+  employees:
+    input_file_path: "employees.json"
+    input_file_type: "json"
+    hive_table: "employees"
+    hive_database: "test_db"
+
+  department:
+    input_file_path: "departments.json"
+    input_file_type: "json"
+    hive_table: "departments"
+    hive_database: "test_db"
+
+mappings:
+  employees:
+    employee_id:
+      source: "employee_id"
+      target: "emp_id"
+      sourceType: "string"
+      targetType: "int"
+    
+    full_name:
+      source: "personal_info.name"  # Nested field access
+      target: "employee_name"
+      sourceType: "string"
+      targetType: "string"
+    
+    email:
+      source: "personal_info.email"
+      target: "work_email"
+      sourceType: "string"
+      targetType: "string"
+    
+    department:
+      source: "employment.department"  # Nested field access
+      target: "dept_name"
+      sourceType: "string"
+      targetType: "string"
+    
+    salary:
+      source: "employment.salary"
+      target: "annual_salary"
+      sourceType: "string"
+      targetType: "double"
+    
+    company:
+      source: "employment.company"
+      target: "company_name"
+      sourceType: "string"
+      targetType: "string"
+    
+    start_date:
+      source: "start_date"
+      target: "joining_date"
+      sourceType: "string"
+      targetType: "string"
+
+  departments:
+    department_id:
+      source: "department_id"
+      target: "dept_id"
+      sourceType: "string"
+      targetType: "int"
+    
+    department_name:
+      source: "department_name"
+      target: "dept_name"
+      sourceType: "string"
+      targetType: "string"
+
+validations:
+  employees:
+    - type: "value_match"
+      description: "Validate key fields match between source and target"
+      columns:
+        - $ref: "#/mappings/employees"
+
+  departments:
+    - type: "value_match"
+      description: "Validate key fields match between source and target"
+      columns:
+        - $ref: "#/mappings/departments"

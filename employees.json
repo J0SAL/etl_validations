@@ -1,24 +1,43 @@
 {
     "employees": [
       {
-        "employee_id": 101,
-        "name": "John Doe",
-        "department": "Engineering",
-        "salary": 75000.50,
+        "employee_id": "101",
+        "personal_info": {
+          "name":"John Doe",
+          "email": "johndoe@gmail.com"
+        },
+        "employment": {
+          "department": "Engineering",
+          "salary": "75000.50",
+          "company": "ABC Inc"
+        },
         "start_date": "2020-01-15"
       },
       {
-        "employee_id": 102,
-        "name": "Jane Smith",
-        "department": "Marketing",
-        "salary": 68000.00,
-        "start_date": "2019-05-22"
+        "employee_id": "102",
+        "personal_info": {
+          "name":"Jane Smith",
+          "email": "janesmith@gmail.com"
+        },
+        
+        "employment": {
+          "department": "Marketing",
+          "salary": "65000.00",
+          "company": "XYZ Inc"
+        },
+        "start_date": "2019-11-15"
       },
       {
-        "employee_id": 103,
-        "name": "Mike Johnson",
-        "department": "Engineering",
-        "salary": 82000.75,
+        "employee_id": "103",
+        "personal_info": {
+          "name":"Tom Brown",
+          "email": "tombrown@gmail.com"
+        },
+        "employment": {
+          "department": "Sales",
+          "salary": "55000.00",
+          "company": "LMN Inc"
+        },
         "start_date": "2021-03-10"
       }
     ]
